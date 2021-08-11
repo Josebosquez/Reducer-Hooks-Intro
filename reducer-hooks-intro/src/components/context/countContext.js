@@ -1,25 +1,49 @@
 import React, {useReducer} from "react";
 
+import { INCREMENT, DECREMENT, RESET, MULTIPLY_3, DIVIDE_2 } from "../context/types"
+
 export const CountContext = React.createContext({}); // pass in an object
+
 
 const initialState = {// the initial state
     count: 0,
 };
+
+function addOne(state){
+    return{
+        count: state+1,
+    }
+}
 
 function reducer(state, action){ // accepts 2 arguments - state and action. 
     //action.type is a switch statement. 
     // got a case statement. Then we return an object. we need to match the initial state information in our return.
 
     switch (action.type){
-        case "INCREMENT":
-        return {
-            count: state + 1
-        }
+        case INCREMENT:
+        return addOne(state.count);
+
         // returning a object as well.
-        case "DECREMENT":
+        case DECREMENT:
         return {
-            count: state - 1
-        }
+            count: state.count - 1
+        };
+
+        case RESET: 
+        // let reset = 0;
+        return {
+            count: 0
+        };
+        
+        case MULTIPLY_3:
+            return {
+                count: state.count * 3
+        };
+
+        case DIVIDE_2:
+            return {
+                count: state.count / 2
+            }
         // if there are no cases, then return the default state.
         default: return state;
     }
